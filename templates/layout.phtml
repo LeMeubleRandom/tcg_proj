@@ -1,0 +1,27 @@
+<?php
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>proj</title>
+</head>
+<body>
+    <header>
+        <nav>
+        </nav>
+    </header>
+    <?php
+        if (isset($route)) {
+            require "templates/$route.phtml";
+        } else {
+            require "templates/notFound.phtml";
+        }
+    ?>
+</body>
+</html>
