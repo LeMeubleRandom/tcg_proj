@@ -4,7 +4,7 @@ $fichier = "users.json";
 
 if (!file_exists($fichier)) {
     file_put_contents($fichier, 
-    json_encode(["username" => null, "password"]));
+    json_encode([]));
 }
 
 class FileSet {

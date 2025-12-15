@@ -8,42 +8,52 @@ class User {
     public string $password;
     public int $id;
     public FileSet $FileSet;
+    private ?string $errorEmail = null;
 
     public function __construct() {
         $this->FileSet = new FileSet();
     }
 
     public function register(string $username, string $email, string $password) : bool {
+        $this->FileSet->getFile();
+        $userlist = $this->FileSet->readData;
+        foreach ($userlist as $user) {
+            if ($email === $user["email"]) {
+                $this->errorEmail = "Cet email existe déjà";
+                return false;
+            }
+        }
         $newUser = [
             "id" => rand(1 , 3000),
             "username" => $username,
             "email" =>$email,
-            "passwordHash" => md5($password)
+            "passwordHash" => password_hash($password)
         ];
         $this->FileSet->getFile();
         $this->FileSet->addToFile($newUser);
         return true;
     }
 
-    public function login(string $username, string $password) {
+    public function login(string $username, string $password) : bool {
         $this->FileSet->getFile();
         $userlist = $this->FileSet->readData;
         foreach ($userlist as $user) {
-            if ($user["username"] === $username && $user["passwordHash"] === md5($password)) {
+            if ($user["username"] === $username && password_verify($password, $user["passwordHash"])) {
                 return true;
             }
         }
         return false;
     }
     
-    public function createSession(array $userSessionData) {
-        session_start();
-        $userSessionValue = implode(":", $userSessionData);
-        $_SESSION["user"] = md5($userSessionValue);
+    public function createSession(array $userSessionData) : void {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_SESSION["user_id"] = $userSessionData["id"] ?? null;
     }
     
-    public function rememberUser(array $rememberMeData) {
+    public function rememberUser(array $rememberMeData) : void {
         $rememberUserValue = implode(":", $rememberMeData);
-        setcookie("userCookie", md5($rememberUserValue), time()+180);
+        setcookie("userCookie", password_verify($password, $userSessionValue["passwordHash"]), time()+180);
     }
 }

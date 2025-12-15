@@ -17,6 +17,9 @@ if (isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["passwor
 
 <main>
     <h1>Inscription</h1>
+    <?php if (isset($user->errorEmail)) { ?>
+      <p> <?= $user->errorEmail ?> </p>
+    <?php } ?>
     <form action="" method="POST">
         <div>
             <label for ="username">Nom :</label>
