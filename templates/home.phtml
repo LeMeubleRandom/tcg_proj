@@ -1,9 +1,14 @@
 <?php
 
+if (isset($_POST["register"])) {
+    header("location: index.php?route=register");
+    exit();
+}
+
 ?>
 
 <main>
-    <h1> choisissez votre TCG </h1>
+    <h1 class="test"> choisissez votre TCG </h1>
     <form method="post">
         <button type="submit" name="md">
             Master Duel

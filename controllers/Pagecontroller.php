@@ -5,5 +5,17 @@ class PageController {
         $route = "home";
         require "templates/layout.phtml";
     }
+    public function register() : void {
+        $route = "register";
+        require "templates/layout.phtml";
+    }
+    public function login() : void {
+        $route = "login";
+        require "templates/layout.phtml";
+    }
+    public function notFound() : void {
+        $route = "notFound";
+        require "templates/layout.phtml";
+    }
 }
 ?>

@@ -1,22 +1,23 @@
 <?php
 
 class Router {
+
     public function __construct() {
 
-    }
+    }  
+
     public function handlerequest(array $get) : void {
+        $control = new PageController;
         if (isset($get["route"])) {
-            if ($get["route"] === "accueil") {
-                $control = new PageController;
-                $control->home();
+            if (method_exists($control, $get["route"]) && is_callable([$control, $get["route"]]) && substr($get["route"], 0, 2) !== '__') {
+                $control->{$get["route"]}();
             } else {
-                $control = new PageController;
-                $control = home();
+                $control->notFound();
             }
         } else {
-            $control = new PageController;
             $control->home();
         }
     }
 }
+
 ?>
