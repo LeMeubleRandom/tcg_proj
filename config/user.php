@@ -3,12 +3,10 @@
 require_once "json_set.php";
 
 class User {
-    public string $username;
-    public string $email;
-    public string $password;
-    public int $id;
     public FileSet $FileSet;
     private ?string $errorEmail = null;
+    private ?string $errorLogin = null;
+    private ?string $successLogin = null;
 
     public function __construct() {
         $this->FileSet = new FileSet();
@@ -27,22 +25,23 @@ class User {
             "id" => rand(1 , 3000),
             "username" => $username,
             "email" =>$email,
-            "passwordHash" => password_hash($password)
+            "passwordHash" => password_hash($password, PASSWORD_DEFAULT)
         ];
-        $this->FileSet->getFile();
         $this->FileSet->addToFile($newUser);
         return true;
     }
 
-    public function login(string $username, string $password) : bool {
+    public function login(string $username, string $password) : ?array {
         $this->FileSet->getFile();
         $userlist = $this->FileSet->readData;
         foreach ($userlist as $user) {
             if ($user["username"] === $username && password_verify($password, $user["passwordHash"])) {
-                return true;
+                $this->successLogin = "Vous êtes connecté";
+                return $user;
             }
         }
-        return false;
+        $this->errorLogin = "Email ou Mot de Passe incorrect";
+        return null;
     }
     
     public function createSession(array $userSessionData) : void {
@@ -53,7 +52,16 @@ class User {
     }
     
     public function rememberUser(array $rememberMeData) : void {
-        $rememberUserValue = implode(":", $rememberMeData);
-        setcookie("userCookie", password_verify($password, $userSessionValue["passwordHash"]), time()+180);
+        setcookie("userCookie", $rememberMeData["id"], time() + 3600);
+    }
+
+    public function getErrorEmail(): ?string {
+        return $this->errorEmail;
+    }
+    public function getErrorLogin(): ?string {
+        return $this->errorLogin;
+    }
+    public function getSuccessLogin(): ?string {
+        return $this->successLogin;
     }
 }
