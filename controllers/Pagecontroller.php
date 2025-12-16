@@ -17,5 +17,9 @@ class PageController {
         $route = "notFound";
         require "templates/layout.phtml";
     }
+    public function profile() : void {
+        $route = "profile";
+        require "templates/layout.phtml";
+    }
 }
 ?>
