@@ -15,9 +15,17 @@
 <body>
     <header>
         <nav>
-            <a href="index.php?route=home" id="accueil">Accueil</a>
-            <a href="index.php?route=register" id="register">S'inscrire</a>
-            <a href="index.php?route=login" id="login">Se connecter</a>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <ul id="menu-side">
+                <li><a href="index.php?route=home" id="accueil">Accueil</a></li>
+                <li><a href="index.php?route=register" id="register">S'inscrire</a></li>
+                <li><a href="index.php?route=login" id="login">Se connecter</a></li>
+            </ul>
         </nav>
     </header>
     <?php
