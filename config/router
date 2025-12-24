@@ -1,3 +1,0 @@
-/ HomeController:index
-/blog BlogController:index
-/blog/* BlogController:show

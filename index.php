@@ -6,7 +6,21 @@ error_reporting(E_ALL);
 
 require "config/autoloader.php";
 
-$router = new Router();
-$router->handlerequest($_GET);
+try {
+    $router = new Router();
+
+    if (isset($_GET["path"])) {
+        $request = "/".$_GET["path"];
+    } else {
+        $request = "/";
+    }
+
+    $router->route($routes, $request);
+
+} catch(Exception $e) {
+    if($e->getCode() === 404) {
+        require "./templates/notFound.phtml";
+    }
+}
 
 ?>

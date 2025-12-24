@@ -1,0 +1,7 @@
+/ HomeController:home
+/rush RushController:index
+/tcg TCGController:index
+/vanguard VanguardController:index
+/login UserController:login
+/register UserController:register
+/profile UserController:profile

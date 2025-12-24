@@ -2,20 +2,40 @@
 
 class Router {
 
-    public function __construct() {
-
-    }  
-
-    public function handlerequest(array $get) : void {
-        $control = new HomeController;
-        if (isset($get["route"])) {
-            if (method_exists($control, $get["route"]) && is_callable([$control, $get["route"]]) && substr($get["route"], 0, 2) !== '__') {
-                $control->{$get["route"]}();
-            } else {
-                $control->notFound();
-            }
+    private function parseRequest(string $request) {
+        $route = [];
+        $routeData = explode("/", $request);
+        $route["path"] = "/".$routeData[1];
+        if (count($routeData) > 2) {
+            $route["parameter"] = $routeData[2];
         } else {
-            $control->home();
+            $route["parameter"] = null;
+        }
+        return $route;
+    }
+
+    public function route(array $routes, string $request) {
+        $requestData = $this->parseRequest($request);
+        $routeFound = false;
+        foreach($routes as $route) {
+            $controller = $route["controller"];
+            $method = $route["method"];
+            $parameter = $route["parameter"];
+
+            if ($route["path"] === $requestData["path"]) {
+                if ($route["parameter"] && $requestData["parameter"] !== null) {
+                    $routeFound = true;
+                    $ctrl = new $controller();
+                    $ctrl->$method($requestData["parameter"]);
+                } else if ($route["parameter"] && $requestData["parameter"] === null) {
+                    $routeFound = true;
+                    $ctrl = new $controller();
+                    $ctrl->$method();
+                }
+            }
+        }
+        if (!$routeFound) {
+            require ("templates/notFound.phtml");
         }
     }
 }
