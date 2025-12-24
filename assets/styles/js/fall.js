@@ -4,11 +4,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
   classeur.forEach((card) => {
     card.addEventListener("animationiteration", (event) => {
       if (event.animationName === "fall") {
-        let hasard = Math.random();
-        hasard *= banqueImages.length;
-        hasard = Math.floor(hasard);
-        imgF = card.querySelector(".face");
-        imgF.src = banqueImages[hasard];
+        fetch("/../ressources/carddistrib.php")
+          .then((response) => response.json())
+          .then((data) => {
+            card.querySelector(".face").src = data.face;
+            card.querySelector(".back").src = data.back;
+          });
       }
     });
   });

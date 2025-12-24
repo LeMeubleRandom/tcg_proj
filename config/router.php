@@ -7,7 +7,7 @@ class Router {
     }  
 
     public function handlerequest(array $get) : void {
-        $control = new PageController;
+        $control = new HomeController;
         if (isset($get["route"])) {
             if (method_exists($control, $get["route"]) && is_callable([$control, $get["route"]]) && substr($get["route"], 0, 2) !== '__') {
                 $control->{$get["route"]}();

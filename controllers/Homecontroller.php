@@ -1,6 +1,6 @@
 <?php
 
-class PageController {
+class HomeController {
     public function home() : void {
         $route = "home";
         require "templates/layout.phtml";
