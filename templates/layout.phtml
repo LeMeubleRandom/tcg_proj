@@ -1,6 +1,9 @@
 <?php
 
-$id_card = random_int(1, 4);
+$dossier = "assets/images/pics/";
+$images = glob($dossier . "*.{png}", GLOB_BRACE);
+$id_card = array_rand($images);
+$card_way = $images[$id_card];
 
 ?>
 
@@ -30,7 +33,7 @@ $id_card = random_int(1, 4);
     </header>
     <div id="background">
         <div class="card">
-            <img class="face" src="assets/images/<?=$id_card?>.png" alt="">
+            <img class="face" src="<?=$card_way?>" alt="">
             <img class="back" src="assets/images/backcard.jpg" alt="">
         </div>
     </div>
@@ -41,5 +44,12 @@ $id_card = random_int(1, 4);
             require "templates/notFound.phtml";
         }
     ?>
+    <script>
+        const banqueImages = <?php
+            echo json_encode($images);
+        ?>;
+        console.log("CardList :", banqueImages);
+    </script>
+    <script src="assets/styles/js/fall.js"></script>
 </body>
 </html>
