@@ -1,6 +1,6 @@
 <?php
 
-
+$id_card = random_int(1, 4);
 
 ?>
 
@@ -28,6 +28,12 @@
             </ul>
         </nav>
     </header>
+    <div id="background">
+        <div class="card">
+            <img class="face" src="assets/images/<?=$id_card?>.png" alt="">
+            <img class="back" src="assets/images/backcard.jpg" alt="">
+        </div>
+    </div>
     <?php
         if (isset($route)) {
             require "templates/$route.phtml";
