@@ -27,7 +27,7 @@ class Router {
                     $routeFound = true;
                     $ctrl = new $controller();
                     $ctrl->$method($requestData["parameter"]);
-                } else if ($route["parameter"] && $requestData["parameter"] === null) {
+                } else {
                     $routeFound = true;
                     $ctrl = new $controller();
                     $ctrl->$method();

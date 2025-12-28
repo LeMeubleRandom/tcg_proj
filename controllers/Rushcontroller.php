@@ -2,6 +2,6 @@
 
 class RushController {
     public function index() {
-        require "templates/rush_index.phtml";
+        require "templates/rush.phtml";
     }
 }

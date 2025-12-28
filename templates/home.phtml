@@ -9,15 +9,21 @@ if (isset($_POST["register"])) {
 
 <main>
     <h1 class="test" id="tcg_h1"> choisissez votre TCG </h1>
-    <form method="post" id="tcg_choice">
-        <button type="submit" name="md" id="md" class="tcg">
-            <p id="tcg_name"> Master Duel </p>
-        </button>
-        <button type="submit" name="rd" id="rd" class="tcg">
-            <p id="tcg_name"> Rush Duel </p>
-        </button>
-        <button type="submit" name="cfv" id="cfv" class="tcg">
-            <p id="tcg_name"> Cardfight Vanguard </p>
-        </button>
-    </form>
+    <div id="tcg_choice">
+        <div id="md" class="tcg">
+            <a href="index.php/md" class="tcg_name">
+                <img src="assets/images/ygo_logo.png" alt="">
+            </a>
+        </div>
+        <div id="rd" class="tcg">
+            <a href="index.php/rush" class="tcg_name">
+                <img src="assets/images/rush_logo.png" alt="">
+            </a>
+        </div>
+        <div id="cfv" class="tcg">
+            <a href="index.php/vanguard" class="tcg_name">
+                <img src="assets/images/vanguard_logo.webp" alt="">
+            </a>
+        </div>
+    </div>
 </main>

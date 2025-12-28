@@ -1,6 +1,6 @@
 <?php
 
-require_once "json_set.php";
+require_once "config/json_set.php";
 
 class User {
     public FileSet $FileSet;
